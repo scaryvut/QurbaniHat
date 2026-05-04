@@ -65,9 +65,11 @@ const DetailsAnimals = async ({ params }) => {
 
           {/* CTA */}
           <div className="flex gap-4 mt-6">
-            <button className="flex-1 bg-green-500 text-white py-3 rounded-lg hover:bg-green-600">
-              Book Now
-            </button>
+<Link href="/booking">
+  <button className="flex-1 w-[300px] bg-green-500 text-white py-3 rounded-lg hover:bg-green-600">
+    Book Now
+  </button>
+</Link>
             <button className="flex-1 border border-green-500 text-green-600 py-3 rounded-lg">
               Contact Seller
             </button>
