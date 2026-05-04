@@ -39,14 +39,14 @@ const Navbar = () => {
             height={45}
             className="object-cover"
           />
-          <h3 className="font-black text-xl md:text-2xl">
+          <h3 className="font-black text-xl md:text-2xl animate__pulse">
             QurbaniHat
           </h3>
         </div>
 
         {/* Links */}
         <ul className="flex gap-4 md:gap-6 text-sm flex-wrap justify-center">
-          <li><Link href="/">Home</Link></li>
+          <li><Link href="/" className="animate__pulse">Home</Link></li>
           <li><Link href="/all_animals">All Animals</Link></li>
           <li><Link href="/profile">My Profile</Link></li>
         </ul>

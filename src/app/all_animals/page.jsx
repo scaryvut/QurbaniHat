@@ -84,7 +84,7 @@ const AllAnimalPage = () => {
         </div>
       </div>
 
-      <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mt-6">
+      <div className="grid md:grid-cols-4 sm:grid-cols-2 gap-6 mt-6 animate__animated animate__backInUp">
         {sortedAnimals.map((animal) => (
           <div
             key={animal.id}

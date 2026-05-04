@@ -52,11 +52,11 @@ const Banner = () => {
       <div className="absolute inset-0 bg-black/50 flex items-center">
         <div className="max-w-7xl mx-auto px-6 text-white">
 
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 max-w-2xl">
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 max-w-2xl animate__animated animate__backInLeft">
             QurbaniHat: Your Premium Farm-to-Hassle-Free Marketplace
           </h1>
 
-          <p className="text-lg md:text-xl mb-6 max-w-xl text-gray-200">
+          <p className="text-lg md:text-xl mb-6 max-w-xl text-gray-200 animate__animated animate__backInRight">
             Your trusted partner for high-quality cattle and seamless Eid-ul-Adha preparations.
           </p>
 

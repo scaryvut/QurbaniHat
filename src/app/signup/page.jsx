@@ -73,7 +73,7 @@ export default function SignUpPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md border rounded-xl p-6 sm:p-8 shadow-sm">
+      <div className="w-full max-w-md border rounded-xl p-6 sm:p-8 shadow-sm animate__animated animate__backInDown">
 
         <h1 className="text-center text-2xl font-bold">
           Sign Up
