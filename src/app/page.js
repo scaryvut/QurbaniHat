@@ -1,5 +1,6 @@
 import Banner from "@/components/Banner";
 import TopAnimals from "@/components/TopAnimals";
+import NotFound from "./not-found";
 
 
 
