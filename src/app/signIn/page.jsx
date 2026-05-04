@@ -115,6 +115,15 @@ export default function SignInPage() {
         >
           {googleLoading ? "Redirecting..." : "Continue with Google"}
         </button>
+        <p className="text-center text-sm text-gray-500 mt-4">
+  Don’t have an account?{" "}
+  <a
+    href="/signup"
+    className="text-green-600 font-medium hover:underline"
+  >
+    Sign Up
+  </a>
+</p>
       </div>
 
       {/* Toast */}
