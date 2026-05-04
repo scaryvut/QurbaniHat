@@ -1,14 +1,18 @@
 "use client";
+
 import React, { useState } from "react";
 import { Check } from "@gravity-ui/icons";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUpPage() {
   const router = useRouter();
+
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -28,13 +32,21 @@ export default function SignUpPage() {
       });
 
       if (error) {
-        toast.error(error.message || "Signup failed");
+        // 🔥 handle existing user case
+        if (error.message?.toLowerCase().includes("exist")) {
+          toast.error("Account already exists. Redirecting to Sign In...");
+          setTimeout(() => router.push("/signIn"), 1500);
+        } else {
+          toast.error(error.message || "Signup failed");
+        }
+
         setLoading(false);
         return;
       }
 
       toast.success("Account created successfully!");
       setTimeout(() => router.push("/"), 1200);
+
     } catch (err) {
       toast.error("Something went wrong");
     } finally {
@@ -42,85 +54,105 @@ export default function SignUpPage() {
     }
   };
 
+  // ✅ Google Sign Up
+  const handleGoogleSignUp = async () => {
+    try {
+      setGoogleLoading(true);
+
+      await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/",
+      });
+
+      toast.success("Redirecting to Google...");
+    } catch (err) {
+      toast.error("Google signup failed");
+      setGoogleLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-md border rounded-xl p-6 sm:p-8 shadow-sm">
-        <h1 className="text-center text-2xl font-bold">Sign Up</h1>
 
-        <form
-          className="flex flex-col gap-4 mt-6"
-          onSubmit={onSubmit}
-        >
-          {/* Name */}
-          <div>
-            <label className="block mb-1 font-medium">Name</label>
-            <input
-              required
-              name="name"
-              type="text"
-              className="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
+        <h1 className="text-center text-2xl font-bold">
+          Sign Up
+        </h1>
 
-          {/* Image */}
-          <div>
-            <label className="block mb-1 font-medium">Image URL</label>
-            <input
-              required
-              name="image"
-              type="text"
-              className="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
+        {/* FORM */}
+        <form onSubmit={onSubmit} className="flex flex-col gap-4 mt-6">
 
-          {/* Email */}
-          <div>
-            <label className="block mb-1 font-medium">Email</label>
-            <input
-              required
-              name="email"
-              type="email"
-              className="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
+          <input
+            name="name"
+            required
+            placeholder="Name"
+            className="w-full px-3 py-2 border rounded-md"
+          />
 
-          {/* Password */}
-          <div>
-            <label className="block mb-1 font-medium">Password</label>
-            <input
-              required
-              name="password"
-              type="password"
-              minLength={8}
-              className="w-full px-3 py-2 border rounded-md"
-            />
-            <p className="text-xs text-gray-500 mt-1">
-              Minimum 8 characters
-            </p>
-          </div>
+          <input
+            name="image"
+            required
+            placeholder="Image URL"
+            className="w-full px-3 py-2 border rounded-md"
+          />
 
-          {/* Buttons */}
-          <div className="flex gap-2">
-            <button
-              type="submit"
-              disabled={loading}
-              className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2 rounded-md w-full disabled:opacity-60"
-            >
-              <Check />
-              {loading ? "Creating..." : "Submit"}
-            </button>
+          <input
+            name="email"
+            type="email"
+            required
+            placeholder="Email"
+            className="w-full px-3 py-2 border rounded-md"
+          />
 
-            <button
-              type="reset"
-              className="bg-gray-200 px-4 py-2 rounded-md"
-            >
-              Reset
-            </button>
-          </div>
+          <input
+            name="password"
+            type="password"
+            minLength={8}
+            required
+            placeholder="Password"
+            className="w-full px-3 py-2 border rounded-md"
+          />
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-2 rounded-md disabled:opacity-60"
+          >
+            <Check />
+            {loading ? "Creating..." : "Sign Up"}
+          </button>
         </form>
 
-        <ToastContainer position="top-right" autoClose={2000} />
+        {/* Divider */}
+        <div className="flex items-center gap-3 my-6">
+          <div className="flex-1 h-px bg-gray-300"></div>
+          <span className="text-sm text-gray-500">OR</span>
+          <div className="flex-1 h-px bg-gray-300"></div>
+        </div>
+
+        {/* Google */}
+        <button
+          onClick={handleGoogleSignUp}
+          disabled={googleLoading}
+          className="w-full flex items-center justify-center gap-2 border px-4 py-2 rounded-md hover:bg-gray-50 disabled:opacity-50"
+        >
+          {googleLoading ? "Redirecting..." : "Continue with Google"}
+        </button>
+
+        {/* Sign In Redirect */}
+        <p className="text-center text-sm text-gray-500 mt-6">
+          Already have an account?{" "}
+          <Link
+            href="/signIn"
+            className="text-green-600 font-medium hover:underline"
+          >
+            Sign In
+          </Link>
+        </p>
+
       </div>
+
+      <ToastContainer position="top-right" autoClose={2000} />
     </div>
   );
 }
