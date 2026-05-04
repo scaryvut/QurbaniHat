@@ -15,7 +15,9 @@ const AllAnimalPage = () => {
 
       const start = Date.now();
 
-      const res = await fetch("/data.json");
+      const res = await fetch("https://qurbani-hat-bazar.vercel.app/data.json", {
+    cache: "no-store",
+  });
       const data = await res.json();
 
       const elapsed = Date.now() - start;

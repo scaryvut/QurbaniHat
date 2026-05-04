@@ -4,7 +4,7 @@ import Link from "next/link";
 
 const DetailsAnimals = async ({ params }) => {
   const { id } = await params;
-  const res = await fetch("http://localhost:3000/data.json");
+  const res = await fetch("https://qurbani-hat-bazar.vercel.app/data.json");
   const animals = await res.json();
   const animal = animals.find((a) => a.id == id);
   return (
@@ -65,11 +65,11 @@ const DetailsAnimals = async ({ params }) => {
 
           {/* CTA */}
           <div className="flex gap-4 mt-6">
-<Link href="/booking">
-  <button className="flex-1 w-[300px] bg-green-500 text-white py-3 rounded-lg hover:bg-green-600">
-    Book Now
-  </button>
-</Link>
+            <Link href="/booking">
+              <button className="flex-1 w-[300px] bg-green-500 text-white py-3 rounded-lg hover:bg-green-600">
+                Book Now
+              </button>
+            </Link>
             <button className="flex-1 border border-green-500 text-green-600 py-3 rounded-lg">
               Contact Seller
             </button>
