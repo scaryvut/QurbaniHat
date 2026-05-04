@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 export default function BookingPage() {
   const searchParams = useSearchParams();
@@ -57,9 +58,16 @@ export default function BookingPage() {
     <div className="min-h-screen flex items-center justify-center px-4 bg-gray-50">
       <div className="w-full max-w-lg bg-white p-6 rounded-2xl shadow-md">
 
-        <h2 className="text-2xl font-bold text-center text-green-600">
+<div className="flex justify-between">
+          <h2 className="text-2xl font-bold text-center text-green-600">
           Book Your Animal
         </h2>
+                <Link href="/all_animals">
+          <button className="flex items-center gap-2 text-green-600 hover:text-green-700 font-medium">
+            ← Back
+          </button>
+        </Link>
+</div>
 
         {/* Show selected animal */}
         {animal && (
